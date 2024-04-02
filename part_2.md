@@ -104,7 +104,9 @@ This illustration is an intuitive representation of Folding. Let's look at the s
 ## 3.1 Random linear Combination
 The most direct approach to folding $Z_1$ and $Z_2$ is to take a random linear combination with $r$:
 $$
+\begin{align*}
 Z = Z_1 + r \cdot Z_2
+\end{align*}
 $$
 
 Ideally, we hope that:
@@ -119,20 +121,27 @@ However, the $Z$ that results from applying the random linear combination does n
 
 Since $z=[W, x, 1]$, we can express:
 
+$$
 \begin{align}
 Z_1 &= [W_1, x_1, 1] \\
 Z_2 &= [W_2, x_2, 1]
 \end{align}
+$$
 
 Then $Z = Z_1 + r \cdot Z_2$ becomes:
-$$ Z = [W_1 + r \cdot W_2, x_1 + r \cdot x_2, 1 + r \cdot 1] $$
+$$
+\begin{align}
+Z = [W_1 + r \cdot W_2, x_1 + r \cdot x_2, 1 + r \cdot 1]
+\end{align}
+$$
 
 Now, expanding $A \cdot Z \odot B \cdot Z$ is below, but it is not equal to the $C \cdot Z=C \cdot (Z_1 + r \cdot Z_2)$
 
 $$
 \begin{align*}
 A \cdot Z \odot B \cdot Z &= A \cdot (Z_1 + r \cdot Z_2) \odot B \cdot (Z_1 + r \cdot Z_2) \\
-&= A \cdot Z_1 \odot B \cdot Z_1 + r \cdot (A \cdot Z_1 \odot B \cdot Z_2 + A \cdot Z_2 \odot B \cdot Z_1) + r^2 \cdot (A \cdot Z_2 \odot B \cdot Z_2) \\ &= C \cdot Z_1+r^2 (C \cdot Z_2)+r \cdot (A \cdot Z_1 \odot B \cdot Z_2 + A \cdot Z_2 \odot B \cdot Z_1) 
+&= A \cdot Z_1 \odot B \cdot Z_1 + r \cdot (A \cdot Z_1 \odot B \cdot Z_2 + A \cdot Z_2 \odot B \cdot Z_1) + r^2 \cdot (A \cdot Z_2 \odot B \cdot Z_2) \\ 
+&= C \cdot Z_1+r^2 (C \cdot Z_2)+r \cdot (A \cdot Z_1 \odot B \cdot Z_2 + A \cdot Z_2 \odot B \cdot Z_1) 
 \\
 &\neq C \cdot Z.
 \end{align*}
@@ -361,7 +370,7 @@ This function evaluates to 1 (true) if the proof $\pi$ correctly demonstrates th
 
 In Nova, besides the primary function $F$, the IVC Prover runs an augmented function $F'$. This augmented function comes with an associated augmented constraint system(Augmented Circuit), which is essential for generating the IVC proof $\Pi_i$.
 
-![augmented constraints](/images/part2_augmentedconstraints)
+![augmented constraints](/images/part2_augmentedconstraints.png)
 
 
 Here, $U_{\text{acc}, i}$ represents the accumulated Committed Relaxed R1CS instances that have been executed correctly from the 1st to the $i-1$ th. $u_i$ indicates that the $i$th step has been executed correctly. Note that $u_i = (\overline{W_i}, \overline{0}, x_i, 1)$ where $\overline{E} = 0$ and $u = 1$ in the committed Relaxed R1CS and $U_i=(\overline{W_i}, \overline {E_i}, x_i, u_i)$.
