@@ -102,6 +102,7 @@ When a prime number $p$ is chosen, the set of numbers ${0,1,…,p−1}$ consisti
 Elliptic curves are defined by a specific equation, commonly known as the Weierstrass equation, represented as follows:
 
 $$ y^2 = x^3 + ax + b $$
+
 ![Ellipticcurves](/images/part3_2.1ellipticcurves.png)
 
 In cryptography, elliptic curves are defined over finite fields $F_p$, not over the field of real numbers. The coefficients $a,b$ of the elliptic curve formula are chosen from the finite field $F_p$. The calculations on elliptic curves are performed within this finite field, following modular arithmetic. Then, the all coordinates (x,y) satisfying the formula form a group.
