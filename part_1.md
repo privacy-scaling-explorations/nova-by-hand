@@ -33,10 +33,10 @@ Culminating the series of verifications is The Final Proof $\Pi_n$, which unders
 # 2 Mechanisms and problems of ordinary Recursion
 Now that you understand IVC, let's review the recursive proofs in zero-knowledge proofs.
 
-## 2.1 Two level SNARK recurison 
+## 2.1 Two level SNARK recursion 
 ![two level snark recursion](./images/part1_twolevelsnarkrecursion.png)
 
-This is the diagram of recursion, two-level SNARK which consits the Inner Proof System and the Outer Proof System. For example, suppose we want to use a fast proof scheme for $P1$ and a proof scheme whose verification is the EVM friendly in $P2$.
+This is the diagram of recursion, two-level SNARK which consists the Inner Proof System and the Outer Proof System. For example, suppose we want to use a fast proof scheme for $P1$ and a proof scheme whose verification is the EVM friendly in $P2$.
 
 **Inner Proof System:**
 - Public input: $x$
@@ -45,7 +45,7 @@ At this level, the SNARK prover $P_1$ is tasked with demonstrating knowledge of 
 
 
 **Outer Proof System:**
-- Public input:Verifing parameters $vp$ and $x$
+- Public input: Verifying parameters $vp$ and $x$
 - Witness: $\Pi_1$
 
 In the outer layer, a different SNARK prover $P_2$ proves the existence of a valid proof $\Pi_1$ from the Inner Proof System. This is done by showing that the verifier $V$, equipped with parameters $vp$, confirms the legitimacy of $x$ and $\Pi_1$ by outputting "yes." and then creates a new proof $\Pi_2$.
@@ -117,7 +117,7 @@ While the accumulation approach in Halo2, which compresses commitments like the 
 ![nova folding](./images/part1_novafolding.png)
 
 Unlike the traditional accumulation method, Folding scheme can fold the two arithmetization and it's instances before the commitment into one. In Nova, it can fold the two R1CS instances into one.
-In this picture, $u$ and $w$ reperesent instance and witness pair for the R1CS. This breakthrough implies that, within the IVC steps, there's no longer a need to generate separate SNARK proofs for each step.  This advancement makes it more efficient IVC implementations.
+In this picture, $u$ and $w$ represent instance and witness pair for the R1CS. This breakthrough implies that, within the IVC steps, there's no longer a need to generate separate SNARK proofs for each step.  This advancement makes it more efficient IVC implementations.
 
 Here are some of Nova's features.
 - Adoption of Folding Schemes, making two NP(R1CS) instances into one.

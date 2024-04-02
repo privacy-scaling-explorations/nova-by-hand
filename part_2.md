@@ -8,7 +8,7 @@ So let's begin by reviewing the R1CS.
 
 # 2 R1CS
 ## 2.1 Definition of R1CS
-R1CS (Rank-1 Constraint System) addresses tasks in the NP complexity class, which are challenging to solve but relatively easier to verify once a solution is found. In the context of ZKP, R1CS is a mathmatical representation which is converted from  the complex computational tasks. The R1CS is $Az \odot Bz = Cz$, where $A$, $B$, and $C$ are coefficient matrices, and $z$ is the instance vector. This vector $z$ includes the witness $W$, public input/output $x$, and the constant $1$, making $z=[W, x, 1]$.
+R1CS (Rank-1 Constraint System) addresses tasks in the NP complexity class, which are challenging to solve but relatively easier to verify once a solution is found. In the context of ZKP, R1CS is a mathematical representation which is converted from  the complex computational tasks. The R1CS is $Az \odot Bz = Cz$, where $A$, $B$, and $C$ are coefficient matrices, and $z$ is the instance vector. This vector $z$ includes the witness $W$, public input/output $x$, and the constant $1$, making $z=[W, x, 1]$.
 
 ## 2.2 Constructs the R1CS from equation
 ### 2.2.1 Statement
@@ -84,7 +84,7 @@ In this statement, there are many instance vectors $z$ possible, as various pair
 For instance, when $(x, y) = (2, 15)$, $z$ is $[2, 4, 8, 10, 15, 1]$. Similarly, for $(x, y) = (3, 35)$, $z$ is $[3, 9, 27, 30, 35, 1]$.
 
 ## 2.3 R1CS in IVC
-Nova is one of the IVC, so we suppose tha IVC has the function $F$ of the $x^3 + x + 5 = y$ and it's R1CS. This is the IVC, so the output $y$ at step $i$ becomes the input $x$ at the step $i+1$. 
+Nova is one of the IVC, so we suppose that IVC has the function $F$ of the $x^3 + x + 5 = y$ and it's R1CS. This is the IVC, so the output $y$ at step $i$ becomes the input $x$ at the step $i+1$. 
 
 For instance,
 Step 1: $(x, y) = (1, 7)$, $z$ is $[1, 1, 1, 2, 7, 1]$
@@ -183,8 +183,8 @@ From the definition of relaxed R1CS, we have:
 $$
 \begin{align*}
 (A \cdot Z_i) \circ (B \cdot Z_i) &= u_i \cdot (C \cdot Z_i) + E_i \\
-\text{1st instnace:} Z_1 &= (W_1, x_1, u_1), E_1 \\
-\text{2nd instnace:}Z_2 &= (W_2, x_2, u_2), E_2
+\text{1st instance:} Z_1 &= (W_1, x_1, u_1), E_1 \\
+\text{2nd instance:}Z_2 &= (W_2, x_2, u_2), E_2
 \end{align*}
 $$
 
@@ -273,7 +273,7 @@ A commitment scheme allows us to commit to a chosen value while keeping it hidde
 2. Binding: Once a commitment is made, the original value cannot be changed.
 
 ### 5.1.1 Pedersen Commitment
-The Pedersen Commitment is one of commitment schemes and is used to build Commited Relaxed R1CS.
+The Pedersen Commitment is one of commitment schemes and is used to build Committed Relaxed R1CS.
 
 - Generation Method: Let $P$ and $Q$ be two points on an elliptic curve. The commitment $c(s, r)$, for a secret value $s$ and a random number $r$, is computed using the equation $c(s, r) = sP + rQ$.
 
@@ -295,7 +295,7 @@ In the Relaxed R1CS, instance-witness pairs are denoted as $(E_i, u_i, W_i, x_i)
 
 # 6 Folding Scheme for Committed Relaxed R1CS
 
-Let's see how to construct Folding scheme for Commited Relaxed R1CS.
+Let's see how to construct Folding scheme for Committed Relaxed R1CS.
 
 
 ## 6.1 Prover and Verifier Actions in the Folding Scheme for Committed Relaxed R1CS
@@ -308,7 +308,7 @@ Initially, the Prover has an instance-witness pair for the Relaxed R1CS, denoted
 ### 6.1.1 Prover commits the witness and sends them to the Verifier
 ![6.1.1](/images/part2_6.1.1.png)
 
-The Prover has a witness of Commited Relaxed R1CS $(E_i, r_{E_i}, W_i, r_{W_i})$  and takes the Pedersen Commitment of $E_i$ and $W_i$ with random values $r_{E_i}$ and $r_{W_i}$ and then sends the committed witnesses $\bar{E}_i$ and $\bar{W}_i$ to the Verifier. They get the instance of the Committed Relaxed R1CS $(\bar{E}_i, u_i, \bar{W}_i, x_i)$.
+The Prover has a witness of Committed Relaxed R1CS $(E_i, r_{E_i}, W_i, r_{W_i})$  and takes the Pedersen Commitment of $E_i$ and $W_i$ with random values $r_{E_i}$ and $r_{W_i}$ and then sends the committed witnesses $\bar{E}_i$ and $\bar{W}_i$ to the Verifier. They get the instance of the Committed Relaxed R1CS $(\bar{E}_i, u_i, \bar{W}_i, x_i)$.
 
 ### 6.1.2 Prover calculates the cross term and sends it to the Verifier
 ![6.1.2](/images/part2_6.1.2.png)
@@ -326,7 +326,7 @@ The Verifier chooses $r$ for a random linear combination and then sends it to th
 Both Prover and Verifier derive the folded instance of Committed Relaxed R1CS, $(\bar{E}, u, \bar{W}, x)$, by taking random linear combination with $r$.
 
 
-### 6.1.5 Prover derive the folded witness of the Commited Relaxed R1CS
+### 6.1.5 Prover derive the folded witness of the Committed Relaxed R1CS
 ![6.1.5](/images/part2_6.1.5.png)
 
 Only the Prover needs to derive the folded witness of the Committed Relaxed R1CS, $(\bar{E}, r_E, \bar{W}, r_W)$, by taking random linear combination with $r$.
