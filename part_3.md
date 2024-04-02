@@ -102,9 +102,7 @@ When a prime number $p$ is chosen, the set of numbers ${0,1,…,p−1}$ consisti
 Elliptic curves are defined by a specific equation, commonly known as the Weierstrass equation, represented as follows:
 
 $$ y^2 = x^3 + ax + b $$
-
-![Screenshot 2024-03-13 at 18.28.31](https://hackmd.io/_uploads/B1ORZgy06.png)
-
+![Ellipticcurve](/images/part3_Ellipticcurveonfinitefield.png)
 
 In cryptography, elliptic curves are defined over finite fields $F_p$, not over the field of real numbers. The coefficients $a,b$ of the elliptic curve formula are chosen from the finite field $F_p$. The calculations on elliptic curves are performed within this finite field, following modular arithmetic. Then, the all coordinates (x,y) satisfying the formula form a group.
 
@@ -122,12 +120,14 @@ The elliptic curve group $E(F_p)$ is the set of all pairs of $(x, y)$ that satis
 To confirm that the elliptic curve group is indeed a group, let's check that the axioms are satisfied. Here we want to focus on Invertibility.
 
 Addition of elliptic curves over a finite field is defined as:
-![Screenshot 2024-03-01 at 9.55.43](https://hackmd.io/_uploads/rkLIuo0np.png)
+![addition](/images/part3_addition.png)
+
 [Pairing-based Cryptography와 BLS signature의 이해 — Part 1](https://medium.com/atomrigslab/pairing-based-cryptography%EC%99%80-bls-signature%EC%9D%98-%EC%9D%B4%ED%95%B4-part-1-f4ec67d69940)
 
 So if we try to add $P$ and its reciprocal $-P$, the line connecting those lines goes to the infinity point. This is one of the invertibility of the axioms of the group.
 
-![Screenshot 2024-03-01 at 9.57.32](https://hackmd.io/_uploads/BkZyShA3a.png)
+![invertibility](/images/part3_invertibility.png)
+
 [Pairing-based Cryptography와 BLS signature의 이해 — Part 1](https://medium.com/atomrigslab/pairing-based-cryptography%EC%99%80-bls-signature%EC%9D%98-%EC%9D%B4%ED%95%B4-part-1-f4ec67d69940)
 
 
@@ -160,12 +160,11 @@ When you write circuits for ZKP in Circom or Halo2, they are defined in Finite F
 As you may know, in the context of pairing-based SNARKs, the process begins by transforming an Arithmetic Circuit into a set of polynomials defined over a finite field, known as a Quadratic Arithmetic Program (QAP). Subsequently, the coefficients of these polynomials are encoded onto points on an elliptic curve. This encoding is achieved by performing scalar multiplications with respect to a generator of a (sub)group $G$. The verification of Zero-Knowledge Proofs (ZKPs), which includes operations such as multi-scalar multiplication, pairings, and the verification of commitments, is carried out on this (sub)group. 
 
 # 4 The arithmetic problem in Recursion
-![Screenshot 2024-03-01 at 11.53.09](https://hackmd.io/_uploads/BJzrQ6036.png)
+![naive snark based ivc](/images/part3_naivesnarkbasedivc.png)
 
 Please remember the naive snark-based IVC. At each step, $SNARK.V$ in $IVC.P$ verifies the previous proof $\Pi_i$ in Augmented circuit and $SNARK.P$ in $IVC.P$ generates next proof for the Augmented circuit.
 
-![Screenshot 2024-03-11 at 19.59.14](https://hackmd.io/_uploads/ByUmNP26T.png)
-
+![incompatible](/images/part3_incompatible.png)
 
 Here, we encounter a mathematical challenge due to the prover and verifier operating within different orders. The prover $SNARK.P$, is capable of creating proofs for circuits over the finite field $F_p$.
 
@@ -178,8 +177,7 @@ So Field emulation may be one of the solution, but it is very unefficient. The p
 
 
 # 5 Cycle of Groups
-
-![Screenshot 2024-03-13 at 10.40.54](https://hackmd.io/_uploads/rJQU4FCpp.png)
+![cycle of curve](/images/part3_cycleofcurve.png)
 
 The solution to this mismatch lies in an advanced approach known as "Cycles of Groups." By introducing two groups, $G_1$ and $G_2$, each operating over distinct finite fields, we can bridge the gap between the prover $SNARK.P$ and the verifier $SNARK.V$.
 
@@ -190,20 +188,18 @@ This innovative setup enables an extended recursion capability, allowing the pro
 
 
 ## 5.1 Example of Cycle of Curve
-![Screenshot 2024-03-11 at 20.24.32](https://hackmd.io/_uploads/Byf-5D3aa.png)
-
+![pasta curve](/images/part3_pastacurve.png)
 
 For instance, the Pasta curves comprise two elliptic curves named "Pallas" and "Vesta," which are used in what's referred to as "Cycles of Curve." In this case, a notable point is that the Base field and Scalar field are inverted for each of the curves.
 
 
 ## 5.2 Recursion with Cycle of Curve
 Next, let's look at why Cycle of Curve can make recursion more efficient. Please remember this relationship.
-
-![Screenshot 2024-03-13 at 10.40.54](https://hackmd.io/_uploads/BJgSNtApT.png)
+![cycle of curve](/images/part3_cycleofcurve.png)
 
 In recursion, two elliptic curves are used alternately.
 
-![Screenshot 2024-03-11 at 19.20.12](https://hackmd.io/_uploads/SJeH2U3pT.png)
+![cycle of curve and circuits](/images/part3_cycleofcurveandcircuits.png)
 
 This illustration was inspired by [The Halo2 Book](https://zcash.github.io/halo2/background/curves.html#cycles-of-curves)
 
@@ -214,9 +210,7 @@ Thus, by using the Cycle of Curve, we can make the proof $\Pi$ compatible with t
 # 6 Why Dose the Cycle of Curve make it efficiency in Nova?
 
 Recall the Augmented Circuit, which includes Non-Interactive Folding.
-
-![Screenshot 2024-03-13 at 12.44.21](https://hackmd.io/_uploads/BJkNZoRpa.png)
-
+![calculation](/images/part3_calculation.png)
 
 In the Non-Interactive Folding Scheme, it folds two committed relaxed R1CS instances into one. These instances each have commitment values: $\overline{W}$ , $\overline{E}$ and $\overline{T}$, which are points on the curve. Then, these points are multiplied by a scalar $r$, indicating that the calculations occur within a Group. However, the Augmented Constraints are defined over the Finite Field, as they constitute a circuit component. 
 This situation creates incompatibility. If an Augmented Constraint system, defined on the Finite Field and enforces calculations on the Group, it results in added complexity and inefficiency.
@@ -225,15 +219,15 @@ This is precisely where the Cycle of Curves becomes relevant. It would be better
 
 
 # 7 How the Cycle of Curve works in Nova
+![augmented instance](/images/part2_augmentedconstraintsinstance.png)
 
-![Screenshot 2024-03-14 at 10.55.56](https://hackmd.io/_uploads/SJddK01Ra.png)
 Recall this figure, the $u_i$ computed from the Augmented Constraints defined in the Base Field is giving values on the curve. Here, we should use Cycle of Curve in the IVC step.
 
 
 To address these inefficiencies, this part explains the use of elliptic curves from a Cycle of Curves to establish the Augmented Constraints over two distinct finite fields. 
 
+![cycleofcurvenova](/images/part3_cycleofcurvenova.png)
 
-![Screenshot 2024-02-14 at 22.05.50](https://hackmd.io/_uploads/H1JC549ja.png)
 Images are borrowed from this video: [Revisiting the Nova Proof System - Wilson Nguyen](https://youtu.be/h_PU7FZWiQk?si=G5DZYfrlQQi8SG-j).
 
 First, define an Augmented Circuit that contains Non-Interactive Folding on a finite field of two elliptic curves, the pair of the Cycle of Curve.
@@ -250,3 +244,4 @@ Revisiting Nova provides a detailed description of Nova utilizing the Cycle of C
 - [Revisiting the Nova Proof System - Wilson Nguyen](https://youtu.be/h_PU7FZWiQk?si=A6EgWLesFe3CDSTY)
 - [Revisiting the Nova Proof System on a Cycle of Curves](https://eprint.iacr.org/2023/969)
 - [Pairing-based Cryptography와 BLS signature의 이해 — Part 1](https://medium.com/atomrigslab/pairing-based-cryptography%EC%99%80-bls-signature%EC%9D%98-%EC%9D%B4%ED%95%B4-part-1-f4ec67d69940)
+- [The Halo2 Book](https://zcash.github.io/halo2/background/curves.html#cycles-of-curves)

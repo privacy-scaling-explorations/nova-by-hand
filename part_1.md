@@ -5,12 +5,12 @@ As stated in the opening line of Nova paper, Nova is a new approach to realize I
 # 1 Incremental Verifiable Computation
 
 ## 1.1 Incremental Computation
-![Screenshot 2024-02-24 at 17.11.48](https://hackmd.io/_uploads/ByUREmP2p.png)
+![incremenatl computation](./images/part1_incrementalcomputation.png)
 
 First, let's define the Incremental Computation. It involves breaking down a large, complex computation into smaller, manageable steps. In this approach, a fixed function $F$ is applied iteratively to an initial state $Z_0$, along with a sequence of inputs $ω_1, ω_2,..., ω_n$. This process results in a series of intermediate states $Z_1, Z_2, ...Z_i$, ultimately leading to the final state $Z_n$. The main advantage of incremental computation is its ability to handle complex calculations in a step-wise manner, making it easier to manage and update computations based on new inputs or changes.
 
 ## 1.2 Incremental Verifiable Computation (IVC)
-![Screenshot 2024-02-24 at 17.16.45](https://hackmd.io/_uploads/B1c-LQwna.png)
+![incremenatl verifiable computation](./images/part1_incrementalverifiablecomputation.png)
 
 What happens when verifiability is added to Incremental Computation? Incremental Verifiable Computation (IVC) combines incremental computation with a verification layer. It's not just computing states $Z_i$, but also generating a proof $\Pi_i$ for each step $i$. This proof ensures that every computation step is accurate.
 
@@ -18,9 +18,7 @@ In IVC, the system verifies the transition from a previous state $Z_{i-1}$ to th
 
 ## 1.3 Constructing IVC Proofs
 Here, we explore the essential components that make this verification possible.
-
-![Screenshot 2024-02-29 at 0.20.14](https://hackmd.io/_uploads/HJ9Hy0hn6.png)
-
+![constructing ivc proof](./images/part1_constructingivcproof.png)
 
 ### 1.3.1 Proof of Correctness
 At the heart of IVC lies the Proof of Correctness. For each step, denoted by $i$, the system generates a proof $\Pi_i$ alongside the computational state $Z_i$. This proof confirmes that the transition from the previous state $Z_{i-1}$ to the current state $Z_i$, through the application of function $F$ with input $\omega_i$, is executed correctly. Specifically, $\Pi_i$ demonstrates that $F(Z_{i-1}, \omega_i)$ precisely results in $Z_i$, effectively assuring the accuracy of this step.
@@ -36,8 +34,7 @@ Culminating the series of verifications is The Final Proof $\Pi_n$, which unders
 Now that you understand IVC, let's review the recursive proofs in zero-knowledge proofs.
 
 ## 2.1 Two level SNARK recurison 
-
-![Screenshot 2024-02-24 at 23.08.25](https://hackmd.io/_uploads/r1ztOOPha.png)
+![two level snark recursion](./images/part1_twolevelsnarkrecursion.png)
 
 This is the diagram of recursion, two-level SNARK which consits the Inner Proof System and the Outer Proof System. For example, suppose we want to use a fast proof scheme for $P1$ and a proof scheme whose verification is the EVM friendly in $P2$.
 
@@ -59,8 +56,7 @@ This is the concept of the recursion, unlike IVC, which is characterized by its 
 
 
 ## 2.2 Naive SNARK-Based IVC
-![Screenshot 2024-02-25 at 14.34.47](https://hackmd.io/_uploads/B1-CbUd2a.png)
-
+![naive snark-based ivc](./images/part1_naivesnarkbasedivc.png)
 
 The diagram shows a Naive SNARK-Based IVC. At each step $i$, the IVC state $Z_i$ is transformed by a function $F$ to generate a new state $Z_{i+1}$. Simultaneously, a proof $\Pi_i$ is verified and, along with $Z_i$, by the SNARK verifier $SNARK.V$. This verification aims to ensure the correctness of previous state $Z_i$.
 
@@ -103,8 +99,7 @@ Since Halo2 has also been actively used recently, I would like to mention about 
 
 Specifically, Accumulator can take two IPA (Inner Product Argument) proofs and compress them into a single IPA proof. This compressed proof maintains the same validity as the original two proofs while being accumulated at each step.
 
-![Screenshot 2024-02-25 at 14.35.28](https://hackmd.io/_uploads/SkIa-UO2T.png)
-
+![accumulation](./images/part1_accumulation.png)
 
 At each step $i$, the computation produces a new state $Z_{i+1}$ from the previous state $Z_i$ through a function $F$. Concurrently, the accumulator $ACC$ updates the state from $\Pi_{acc,i}$ to $\Pi_{acc,i+1}$ using the proof function $ACC.P$, based on $Z_i, \Pi_i$, and $\Pi_{acc, i}$. This new accumulator state $\Pi_{acc,i+1}$ is then verified through a verification function $ACC.V$.
 
@@ -119,8 +114,7 @@ While the accumulation approach in Halo2, which compresses commitments like the 
 
 # 3 Nova Folding
 ## 3.1 Features of Nova Folding
-
-![Screenshot 2024-02-25 at 14.41.58](https://hackmd.io/_uploads/ryUBmUO2T.png)
+![nova folding](./images/part1_novafolding.png)
 
 Unlike the traditional accumulation method, Folding scheme can fold the two arithmetization and it's instances before the commitment into one. In Nova, it can fold the two R1CS instances into one.
 In this picture, $u$ and $w$ reperesent instance and witness pair for the R1CS. This breakthrough implies that, within the IVC steps, there's no longer a need to generate separate SNARK proofs for each step.  This advancement makes it more efficient IVC implementations.
@@ -151,10 +145,11 @@ Since the invention of Nova Folding, there has been an evolution in the Folding 
 - [Nova: Recursive Zero-Knowledge Arguments from Folding Schemes](https://eprint.iacr.org/2021/370)
 - [From Folding Hype to Multivariate Setting Rescue. A 2023 lookback | CPerezz | PROGCRYPTO](https://youtu.be/zru9-6tE7eY?si=ClgzlTwE5KUjNxYh)
 - [An incomplete guide to Folding: Nova, Sangria, SuperNova, HyperNova, Protostar](https://taiko.mirror.xyz/tk8LoE-rC2w0MJ4wCWwaJwbq8-Ih8DXnLUf7aJX1FbU)
--[zkStudyClub: Supernova (Srinath Setty - MS Research)](https://youtu.be/ilrvqajkrYY?si=ZOl33MOhYfywTPOo)
+- [zkStudyClub: Supernova (Srinath Setty - MS Research)](https://youtu.be/ilrvqajkrYY?si=ZOl33MOhYfywTPOo)
 - [CCS & HyperNova with Srinath - Folding Schemes FTW](https://www.youtube.com/live/pDFmANwwIoY?si=H6EtUItdawFFyYJJ)
 - [Nova: Recursive Zero-Knowledge Arguments from Folding Schemes - Srinath Setty](https://youtu.be/mY-LWXKsBLc?si=JRf7E2IkEEVHNzzb)
 - [(Workshop) [Super] Nova [Scotia]: Unpacking Nova](https://youtu.be/N6RW_YhLMNw?si=7KWZmQ0KOmmIxL49)
 - [zkPairing](https://0xparc.org/blog/zk-pairing-1)
 - [ZK7: Latest developments in Halo2 by Ying Tong Lai](https://youtu.be/V1RgGn1GtqM?si=IlofaKNNH79doSmW)
+- [The Halo2 Book](https://zcash.github.io/halo2)
 - [Scalable, transparent, and post-quantum secure computational integrity](https://eprint.iacr.org/2018/046)

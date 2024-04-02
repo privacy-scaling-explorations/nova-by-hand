@@ -95,7 +95,7 @@ This means the IVC maintains the same R1CS coefficient matrices $A, B, C$ throug
 
 Thus, the goal of Nova Folding is to fold two instance vectors $z_1, z_2$ into a single vector $z_{(1,2)}$. After IVC should fold the $z_{(1,2)}$ and $z_3$ into $z_{((1,2),3)}$, continue to fold following until the last.
 
-![Screenshot 2024-02-18 at 21.13.52](https://hackmd.io/_uploads/BJi94dkhT.png)
+![r1cs folding](/images/part2_r1csfolding.png)
 
 This illustration is an intuitive representation of Folding. Let's look at the specifics. The actual Nova Folding does Folding of an Augmented Circuit.
 
@@ -196,33 +196,32 @@ AZ \odot BZ &= A(Z_1 + r\cdot Z_2) \odot B(Z_1 + r\cdot Z_2) \\
 This section describes how Prover and Verifier interact to build the Relaxed R1CS, although this is a naïve approach.
 
 ### 4.2.0 What do they have by begin?
-![Screenshot 2024-02-18 at 23.11.05](https://hackmd.io/_uploads/H1Gwl91hT.png)
+![4.2.0](/images/part2_4.2.0.png)
 
 At first, the Prover has an instance-witness pair for the Relaxed R1CS, denoted as $((E_i,u_i,x_i),W_i)$, and the Verifier knows the only instance $(E_i,u_i,x_i)$ for it.
 
 ### 4.2.1 Prover sends the witness to Verifier
-![Screenshot 2024-02-18 at 23.11.20](https://hackmd.io/_uploads/HknDlckha.png)
+![4.2.1](/images/part2_4.2.1.png)
 
 The Prover must send witnesses $W_1, W_2$ to the Verifier so that both have the instance-witness pairs of the Relaxed R1CS.
 
 ### 4.2.2 Verifier chooses r and sends it to Prover
-![Screenshot 2024-02-18 at 23.11.32](https://hackmd.io/_uploads/rJVdlqJ2a.png)
+![4.2.2](/images/part2_4.2.2.png)
 
 The Verifier chooses $r$ to perform a random linear combination and then send it to the Prover.
 
 ### 4.2.3 Prover and Verifier take the random linear combination
-![Screenshot 2024-02-18 at 23.11.43](https://hackmd.io/_uploads/Sko_e512T.png)
+![4.2.3](/images/part2_4.2.3.png)
 
 Both the Prover and the Verifier perform the random linear combination using $r$.
 
 ### 4.2.4 Prover and Verifier get the new instance-witness pair
-![Screenshot 2024-02-18 at 23.11.57](https://hackmd.io/_uploads/HJXqlq13T.png)
+![4.2.4](/images/part2_4.2.4.png)
 
 They obtain the new folded instance-witness pair of the Relaxed R1CS, denoted as $(E, u, x, W)$.
 
 ### 4.2.5 Prover and Verifier check the satisfacation of the Relaxed R1CS
-
-![Screenshot 2024-02-18 at 23.12.10](https://hackmd.io/_uploads/rJvog9knT.png)
+![4.2.5](/images/part2_4.2.5.png)
 
 
 Finally, the Prover and the Verifier can check the satisfaction of the Relaxed R1CS.
@@ -269,8 +268,7 @@ In the Pedersen Commitment scheme:
 2. Adding these commitments results in $c(x, r) + c(y, s) = (x + y)P + (r + s)Q$, forming a new commitment for $x + y$.
 
 ## 5.2 Definition of Committed Relaxed R1CS
-![Screenshot 2024-02-26 at 20.11.19](https://hackmd.io/_uploads/ryygGe5hp.png)
-
+![5.2](/images/part2_5.2.png)
 
 In the Relaxed R1CS, instance-witness pairs are denoted as $(E_i, u_i, W_i, x_i)$. In terms of the Committed Relaxed R1CS, the witness of the Committed Relaxed R1CS can be defined as $(E_i, r_{E_i}, W_i, r_{W_i})$ and the instance of the Committed Relaxed R1CS can be defined as $(\bar{E}_i, u_i, \bar{W}_i, x_i)$. Here, $r$ is a random number.
 
@@ -282,38 +280,38 @@ Let's see how to construct Folding scheme for Commited Relaxed R1CS.
 ## 6.1 Prover and Verifier Actions in the Folding Scheme for Committed Relaxed R1CS
 
 ### 6.1.0 What do they have by begin?
-![Screenshot 2024-02-19 at 13.05.32](https://hackmd.io/_uploads/ryyx4Lxnp.png)
+![6.1.0](/images/part2_6.1.0.png)
 
 Initially, the Prover has an instance-witness pair for the Relaxed R1CS, denoted as $((E_i,u_i,x_i),W)$, and the Verifier knows the instance $(u_i,x_i)$ because $E_i$ is also treated as witness in addition to $W_i$.
 
 ### 6.1.1 Prover commits the witness and sends them to the Verifier
-![Screenshot 2024-02-19 at 13.05.53](https://hackmd.io/_uploads/ByTlN8lhT.png)
+![6.1.1](/images/part2_6.1.1.png)
 
 The Prover has a witness of Commited Relaxed R1CS $(E_i, r_{E_i}, W_i, r_{W_i})$  and takes the Pedersen Commitment of $E_i$ and $W_i$ with random values $r_{E_i}$ and $r_{W_i}$ and then sends the committed witnesses $\bar{E}_i$ and $\bar{W}_i$ to the Verifier. They get the instance of the Committed Relaxed R1CS$(\bar{E}_i, u_i, \bar{W}_i, x_i)$.
 
 ### 6.1.2 Prover calculates the cross term and sends it to the Verifier
-![Screenshot 2024-02-19 at 13.06.08](https://hackmd.io/_uploads/BkP-4Ll3p.png)
+![6.1.2](/images/part2_6.1.2.png)
 
 The Prover calculates the cross term $T$, commits $T$ with random $r_T$ to get $\bar{T}$, and then sends $\bar{T}$ to the Verifier.
 
 ### 6.1.3 Verifier chooses r and sends it to Prover
-![Screenshot 2024-02-19 at 13.06.22](https://hackmd.io/_uploads/BJcME8l3T.png)
+![6.1.3](/images/part2_6.1.3.png)
 
 The Verifier chooses $r$ for a random linear combination and then sends it to the Prover.
 
 ### 6.1.4 Prover and Verifier derive the folded instance of the Committed Relaxed R1CS
-![Screenshot 2024-02-26 at 16.52.59](https://hackmd.io/_uploads/B1Hdm6Y2p.png)
+![6.1.4](/images/part2_6.1.4.png)
 
 Both Prover and Verifier derive the folded instance of Committed Relaxed R1CS, $(\bar{E}, u, \bar{W}, x)$, by taking random linear combination with $r$.
 
 
 ### 6.1.5 Prover derive the folded witness of the Commited Relaxed R1CS
-![Screenshot 2024-02-19 at 13.06.41](https://hackmd.io/_uploads/Sy7ENUxn6.png)
+![6.1.5](/images/part2_6.1.5.png)
 
 Only the Prover needs to derive the folded witness of the Committed Relaxed R1CS, $(\bar{E}, r_E, \bar{W}, r_W)$, by taking random linear combination with $r$.
 
 ### 6.1.6 Final Check
-![Screenshot 2024-02-19 at 13.06.46](https://hackmd.io/_uploads/rJeUVUl2T.png)
+![6.1.6](/images/part2_6.1.6.png)
 
 The Prover has the folded witness of Committed Relaxed R1CS and the folded instance of it. The Verifier knows only the folded instance. Since the Pedersen commitment is additively homomorphic, they can check if the Prover folded correctly.
 
@@ -330,17 +328,14 @@ Intuitively, this means that $r$ is uniquely determined based on the values nece
 
 ## 7.2 Apply the Fiat-Shamir Transform in Folding scheme 
 In the earlier-described Interactive Folding Scheme, $\bar{T}$ is a value that the Verifier always requires. Therefore, the Prover should uniquely determine $r$ by using a hash function that takes $\bar{T}$ as one parameter.
-
-![Screenshot 2024-02-19 at 15.18.29](https://hackmd.io/_uploads/rypaz_eha.png)
+![7.2](/images/part2_7.2.png)
 
 # 8 Constructing IVC from a Folding Scheme
 
 The previous explanation described a Folding Scheme designed to fold two Committed Relaxed R1CS instance-witness pairs into one. The next section will introduce Nova, a scheme that implements Incremental Verifiable Computation (IVC) using the Folding Scheme. Let's now delve into the review of IVC.
 
 ## 8.1 Reviewing the IVC
-![Screenshot 2024-02-26 at 23.59.51](https://hackmd.io/_uploads/rJbiv75hT.png)
-
-
+![review the ivc](/images/part2_reviewingtheivc.png)
 
 In IVC, the Prover aims to demonstrate possession of a function $F$ and an initial input $Z_0$. They want to show that after $n$ steps of applying $F$, where each steps transforms $Z_{i-1}$ into $Z_i$, the final output is $Z_n$.
 
@@ -351,11 +346,10 @@ $V((n, Z_0, Z_n), \Pi_n) \rightarrow {0, 1}$
 This function evaluates to 1 (true) if the proof $\pi$ correctly demonstrates that applying $F$ iteratively $n$ times to $Z_0$ results in $Z_n$, and 0 (false) otherwise.
 
 ## 8.2 Augmented Function and Its Constraints
-![Screenshot 2024-02-25 at 14.41.58](https://hackmd.io/_uploads/HyDQLx93T.png)
+![nova folding](/images/part2_novafolding.png)
 
 In Nova, besides the primary function $F$, the IVC Prover runs an augmented function $F'$. This augmented function comes with an associated augmented constraint system(Augmented Circuit), which is essential for generating the IVC proof $\Pi_i$.
-
-![Screenshot 2024-02-19 at 20.49.49](https://hackmd.io/_uploads/HJEYlpgna.png)
+![augmented constraints](/images/part2_augmentedconstraints.png)
 
 
 Here, $U_{\text{acc}, i}$ represents the accumulated Committed Relaxed R1CS instances that have been executed correctly from the 1st to the $i-1$ th. $u_i$ indicates that the $i$th step has been executed correctly. Note that $u_i = (\overline{W_i}, \overline{0}, x_i, 1)$ where $\overline{E} = 0$ and $u = 1$ in the committed Relaxed R1CS and $U_i=(\overline{W_i}, \overline {E_i}, x_i, u_i)$.
@@ -368,13 +362,12 @@ There are two primary functions of the augmented function $F'$:
 
 Additionally, the Augmented Function $F'$ incorporates Augmented Constraints to generate the IVC Proof.
 
-![Screenshot 2024-02-20 at 18.27.54](https://hackmd.io/_uploads/rkZbQgMnp.png)
+![augmented instance](/images/part2_augmentedconstraintsinstance.png)
 
 
 And in IVC, the Prover computes a new instance of $u_{i+1}$, indicating that the computation of $i+1$ in $F'$ has been executed correctly. The component $u_{i+1}.x$ is instantiated by a hash function whose inputs are $i+1$, $Z_0$, $Z_{i+1}$, and $U_{\text{acc}, i+1}$, ensuring it becomes a constant value.
 
-
-![Screenshot 2024-02-20 at 18.27.41](https://hackmd.io/_uploads/HyJfQeG3a.png)
+![augmented pic](/images/part2_augmentedconstraintspic.png)
 
 
 This illustration is a mixture of Figure 4 on P.18 of the Nova paper and [Revisiting the Nova Proof System - Wilson Nguyen](https://youtu.be/h_PU7FZWiQk?si=G5DZYfrlQQi8SG-j).
@@ -390,7 +383,7 @@ In IVC, a Decider is the verifier who ensures the correctness of computation res
 
 
 ## 9.1 IVC verification
-![Screenshot 2024-02-25 at 14.41.58](https://hackmd.io/_uploads/Sy5HzoF2T.png)
+![ivc verification](/images/part2_ivcverification.png)
 
 Through the Augmented Constraint System, we obtain the IVC proof $\Pi_i=(u_i, w_i),(U_{\text{acc}, i}, W_{\text{acc}, i})$. The Prover can generate this proof at any desired step. To verify it, follow these steps:
 
