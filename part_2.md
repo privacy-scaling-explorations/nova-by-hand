@@ -103,6 +103,7 @@ This illustration is an intuitive representation of Folding. Let's look at the s
 # 3 First Attempt: Try Folding to two R1CS
 ## 3.1 Random linear Combination
 The most direct approach to folding $Z_1$ and $Z_2$ is to take a random linear combination with $r$:
+
 $$
 \begin{align*}
 Z = Z_1 + r \cdot Z_2
@@ -129,6 +130,7 @@ Z_2 &= [W_2, x_2, 1]
 $$
 
 Then $Z = Z_1 + r \cdot Z_2$ becomes:
+
 $$
 \begin{align}
 Z = [W_1 + r \cdot W_2, x_1 + r \cdot x_2, 1 + r \cdot 1]
