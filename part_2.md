@@ -368,14 +368,14 @@ $V((n, Z_0, Z_n), \Pi_n) \rightarrow {0, 1}$
 This function evaluates to 1 (true) if the proof $\pi$ correctly demonstrates that applying $F$ iteratively $n$ times to $Z_0$ results in $Z_n$, and 0 (false) otherwise.
 
 ## 8.2 Augmented Function and Its Constraints
-![nova folding](/images/part2_novafolding.png)
+![nova folding](/images/part2_novafolding2.png)
 
 In Nova, besides the primary function $F$, the IVC Prover runs an augmented function $F'$. This augmented function comes with an associated augmented constraint system(Augmented Circuit), which is essential for generating the IVC proof $\Pi_i$.
 
 ![augmented constraints](/images/part2_augmentedconstraints.png)
 
 
-Here, $U_{\text{acc}, i}$ represents the accumulated Committed Relaxed R1CS instances that have been executed correctly from the 1st to the $i-1$ th. $u_i$ indicates that the $i$th step has been executed correctly. Note that $u_i = (\overline{W_i}, \overline{0}, x_i, 1)$ where $\overline{E} = 0$ and $u = 1$ in the committed Relaxed R1CS and $U_i=(\overline{W_i}, \overline {E_i}, x_i, u_i)$.
+Here, $U_{\text{acc}, i}$ represents the accumulated Committed Relaxed R1CS instances that have been executed correctly from the 1st to the $i-1$ th. $u_i$ indicates that the $i$ th step has been executed correctly. Note that $u_i = (\overline{W_i}, \overline{0}, x_i, 1)$ where $\overline{E} = 0$ and $u = 1$ in the committed Relaxed R1CS and $U_i=(\overline{W_i}, \overline {E_i}, x_i, u_i)$.
 
 There are two primary functions of the augmented function $F'$:
 
@@ -406,7 +406,7 @@ In IVC, a Decider is the verifier who ensures the correctness of computation res
 
 
 ## 9.1 IVC verification
-![ivc verification](/images/part2_ivcverification.png)
+![ivc verification](/images/part2_novafolding2.png)
 
 Through the Augmented Constraint System, we obtain the IVC proof $\Pi_i=(u_i, w_i),(U_{\text{acc}, i}, W_{\text{acc}, i})$. The Prover can generate this proof at any desired step. To verify it, follow these steps:
 
@@ -418,7 +418,7 @@ Through the Augmented Constraint System, we obtain the IVC proof $\Pi_i=(u_i, w_
 
 ## 9.2 Compressing IVC Proofs with zkSNARKs
 
-However, there are challenges with the IVC Proof. The first is the lack of zero-knowledge, as the Prover does not conceal the witness. The second is that the IVC Proof is not succinct. To overcome these issues, it has been proposed that zkSNARKs wraps that prover knows the correct IVC Proof (an IVC proof $\Pi_i$ such that $IVC.V(vk, i, z_0, z_i, \Pi_i) = 1$) within a zkSNARK. The Nova document employs Superspartan for this purpose.
+However, there are challenges with the IVC Proof. The first is the lack of zero-knowledge, as the Prover does not conceal the witness. The second is that the IVC Proof is not succinct. To overcome these issues, it has been proposed that zkSNARKs wraps that prover knows the correct IVC Proof (an IVC proof $\Pi_i$ such that $IVC.V(vk, i, z_0, z_i, \Pi_i) = 1$) within a zkSNARK. The Nova paper employs Superspartan for this purpose.
 
 # 10 Reference
 - [ZKP MOOC Lecture 10: Recursive SNARKs](https://youtu.be/0LW-qeVe6QI?si=5OHATEeT1EFKNjAS)

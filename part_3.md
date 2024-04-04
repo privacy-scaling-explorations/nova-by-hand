@@ -14,6 +14,7 @@ We begin with knowledge of elliptic curves.
 $Z_7$ contains the integers ${0, 1, 2, 3, 4, 5, 6}$. In this set, we define two operations: addition and multiplication, both performed with modulus $7$. The way these operations interact with the elements of $Z_7$ gives rise to two important mathematical structures: a group and a field.
 
 **Order**
+
 Order refers to the number of elements in a group or a field. For $Z_7$, both as a group and a field, the order is 7, representing its seven unique elements.
 
 ## 1.2 Group
@@ -34,10 +35,10 @@ In $Z_7$, when we add numbers using our special rule (modulo 7), some neat patte
 - **Invertibility**: For every element $a$ in $Z_7$, there exists an element $b$ such that $a + b = 0 \mod 7$. For example, the inverse of 3 is 4 because $3 + 4 = 7 \mod 7 = 0$.
 
 
-In the case of group under multiplication, $Z_7$ consists non-zero element $1,2,3,4,5,6$. And the identity element is $1$, not $0$, as every number multiplied by $1$ remains unchanged.
+In the case of group under multiplication, $Z_7^*$ consists non-zero element $1,2,3,4,5,6$. And the identity element is $1$, not $0$, as every number multiplied by $1$ remains unchanged. In invertibility, for each element $a$ in $Z_7^*$, there exists a corresponding element $b$ such that $a \cdot b = 1 \mod 7$.
 
 ### 1.2.3 Abelian group
-An Abelian group, also known as a commutative group, is a group in which the operation is commutative in addition to the three axioms of group.
+An Abelian group, also known as a commutative group, is a group in which the operation is commutative in addition to the four rules of group.
 
 - **commutative**: For any two elements $a, b$, $a + b = b + a$. For instance, $Z_7$ forms an Abelian group under addition, as shown by $3 + 4 = 7 \mod 7 = 0$ and $4 + 3 = 7 \mod 7 = 0$.
 
@@ -61,7 +62,7 @@ The fascinating aspect of cyclic groups, especially in a set like $Z_7$, is that
 
 ## 1.2.5 Subgroup
 
-A subgroup is a subset of a group that itself forms a group under the same operation defined for the original group. To qualify as a subgroup, this subset must satisfy the group's axioms: Closure, Associativity, Identity, and Invertibility.
+A subgroup is a subset of a group that itself forms a group under the same operation defined for the original group. To qualify as a subgroup, this subset must satisfy the group's rules: Closure, Associativity, Identity, and Invertibility.
 
 
 ## 1.3 Field
@@ -82,7 +83,7 @@ A field is an algebraic structure where two operations, addition and multiplicat
   - **Multiplicative Commutativity**: Similarly, for multiplication, $a \times b = b \times a$ for any $a, b$, excluding the special case of the additive identity (0). For example, $3 \times 4 = 12 \mod 7 = 5$ and $4 \times 3 = 12 \mod 7 = 5$. This extends the concept of Abelian groups to the multiplicative operation within a field.
 
 - **Identity**:
-  - **Additive Identity**: The element $0$ acts as the additive identity, where $a + 0 = a$ for any $a$. For example in $Z_7$, $4 + 0 = 4$.
+  - **Additive Identity**: The element $0$ acts as the additive identity, where $a + 0 = a$ for any $a$. For example, $4 + 0 = 4$.
   - **Multiplicative Identity**: The element $1$ serves as the multiplicative identity in $Z_7$, where $a \times 1 = a$ for any $a$. For example, $5 \times 1 = 5$.
 
 - **Invertibility**:
