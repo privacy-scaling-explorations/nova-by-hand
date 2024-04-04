@@ -368,7 +368,7 @@ $V((n, Z_0, Z_n), \Pi_n) \rightarrow {0, 1}$
 This function evaluates to 1 (true) if the proof $\pi$ correctly demonstrates that applying $F$ iteratively $n$ times to $Z_0$ results in $Z_n$, and 0 (false) otherwise.
 
 ## 8.2 Augmented Function and Its Constraints
-![nova folding](/images/part2_novafolding2.png)
+![nova folding](/images/part1_novafolding2.png)
 
 In Nova, besides the primary function $F$, the IVC Prover runs an augmented function $F'$. This augmented function comes with an associated augmented constraint system(Augmented Circuit), which is essential for generating the IVC proof $\Pi_i$.
 
@@ -406,7 +406,7 @@ In IVC, a Decider is the verifier who ensures the correctness of computation res
 
 
 ## 9.1 IVC verification
-![ivc verification](/images/part2_novafolding2.png)
+![ivc verification](/images/part1_novafolding2.png)
 
 Through the Augmented Constraint System, we obtain the IVC proof $\Pi_i=(u_i, w_i),(U_{\text{acc}, i}, W_{\text{acc}, i})$. The Prover can generate this proof at any desired step. To verify it, follow these steps:
 
