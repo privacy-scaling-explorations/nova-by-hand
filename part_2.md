@@ -1,6 +1,6 @@
 # Nova Folding Introduction Part 2
 
-In part(2), I describe, step by step, how to construct the Nova Folding Scheme.
+In part 2, I describe, step by step, how to construct the Nova Folding Scheme.
 
 # 1 Nova Folding
 As briefly mentioned in the previous part, Nova folding scheme is designed to fold two NP instances (especially R1CS instances) into one.
@@ -120,7 +120,7 @@ $$
 
 However, the $Z$ that results from applying the random linear combination does not satisfy the R1CS structure, $A \cdot Z \odot B \cdot Z = C \cdot Z$.
 
-Since $z=[W, x, 1]$, we can express:
+Since $Z=[W, x, 1]$, we can express:
 
 $$
 \begin{align}
@@ -329,7 +329,7 @@ Both Prover and Verifier derive the folded instance of Committed Relaxed R1CS, $
 ### 6.1.5 Prover derive the folded witness of the Committed Relaxed R1CS
 ![6.1.5](/images/part2_6.1.5.png)
 
-Only the Prover needs to derive the folded witness of the Committed Relaxed R1CS, $(\bar{E}, r_E, \bar{W}, r_W)$, by taking random linear combination with $r$.
+Only the Prover needs to derive the folded witness of the Committed Relaxed R1CS, $(E, r_E, W, r_W)$, by taking random linear combination with $r$.
 
 ### 6.1.6 Final Check
 ![6.1.6](/images/part2_6.1.6.png)

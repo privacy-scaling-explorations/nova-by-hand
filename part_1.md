@@ -114,10 +114,10 @@ While the accumulation approach in Halo2, which compresses commitments like the 
 
 # 3 Nova Folding
 ## 3.1 Features of Nova Folding
-![nova folding](./images/part1_novafolding.png)
+![nova folding](./images/part1_novafolding2.png)
 
 Unlike the traditional accumulation method, Folding scheme can fold the two arithmetization and it's instances before the commitment into one. In Nova, it can fold the two R1CS instances into one.
-In this picture, $u$ and $w$ represent instance and witness pair for the R1CS. This breakthrough implies that, within the IVC steps, there's no longer a need to generate separate SNARK proofs for each step.  This advancement makes it more efficient IVC implementations.
+In this picture, $u$ and $w$ represent instance and witness pair for the R1CS. This breakthrough implies that, within the IVC steps, there's no longer a need to generate each SNARK proof and verify it for each step except for the final one.  This advancement makes it more efficient IVC implementations.
 
 Here are some of Nova's features.
 - Adoption of Folding Schemes, making two NP(R1CS) instances into one.
