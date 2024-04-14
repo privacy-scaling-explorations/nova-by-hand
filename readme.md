@@ -5,7 +5,7 @@ These articles were written by Yugo through the [PSE’s acceleration program](h
 # 1 Introduction
 In the recent development of Zero-Knowledge Proof technology, efficiency has been crucial for practical applications, such as zkVM and zkML. A major advancement in recent years is the concept of recursion, enabling the verification of a prior SNARK proof while proving additional statements.
 
-However, an innovative alternative has emerged with Nova Folding scheme. Nova Folding scheme uniquely compresses numerous NP constraints(R1CS) and its instance-witness pairs into a single variant R1CS. It even doesn't need to verify a prior SNARK proof at each recursion step.
+However, an innovative alternative has emerged with Nova's folding scheme, which uniquely combines two R1CS instances and their respective instance-witness pairs into a single one. It also doesn't need to verify a prior SNARK proof at each recursion step.
 
 [Nova: Recursive Zero-Knowledge Arguments from Folding Schemes](https://eprint.iacr.org/2021/370)
 

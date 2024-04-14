@@ -10,7 +10,7 @@ As stated in the opening line of Nova paper, Nova is a new approach to realize I
 First, let's define the Incremental Computation. It involves breaking down a large, complex computation into smaller, manageable steps. In this approach, a fixed function $F$ is applied iteratively to an initial state $Z_0$, along with a sequence of inputs $ω_1, ω_2,..., ω_n$. This process results in a series of intermediate states $Z_1, Z_2, ...Z_i$, ultimately leading to the final state $Z_n$. The main advantage of incremental computation is its ability to handle complex calculations in a step-wise manner, making it easier to manage and update computations based on new inputs or changes.
 
 ## 1.2 Incremental Verifiable Computation (IVC)
-![incremenatl verifiable computation](./images/part1_incrementalverifiablecomputation.png)
+![incremental verifiable computation](./images/part1_incrementalverifiablecomputation.png)
 
 What happens when verifiability is added to Incremental Computation? Incremental Verifiable Computation (IVC) combines incremental computation with a verification layer. It's not just computing states $Z_i$, but also generating a proof $\Pi_i$ for each step $i$. This proof ensures that every computation step is accurate.
 
@@ -24,19 +24,19 @@ Here, we explore the essential components that make this verification possible.
 At the heart of IVC lies the Proof of Correctness. For each step, denoted by $i$, the system generates a proof $\Pi_i$ alongside the computational state $Z_i$. This proof confirmes that the transition from the previous state $Z_{i-1}$ to the current state $Z_i$, through the application of function $F$ with input $\omega_i$, is executed correctly. Specifically, $\Pi_i$ demonstrates that $F(Z_{i-1}, \omega_i)$ precisely results in $Z_i$, effectively assuring the accuracy of this step.
 
 ### 1.3.2 Chain of Verification
-The Chain of Verification extends the concept of trust throughout the computation sequence. Each proof $\Pi_i$ ensure the accuracy of the computation from the previous state, thereby creating a trust chain that links back to the initial state $Z_0$. This is articulated as $V(vp, (i - 1, Z_0, Z_{i-1}), \Pi_{i-1}) = \text{T/F}$, signifying the seamless verification of each step in the computation process.
+The Chain of Verification extends the concept of trust throughout the computation sequence. Each proof $\Pi_i$ ensure the accuracy of the computation from the previous state, thereby creating a trust chain that links back to the initial state $Z_0$. This is articulated as $V(vp, (i - 1, Z_0, Z_{i-1}), \Pi_{i-1}) = \{0, 1\}$, signifying the seamless verification of each step in the computation process.
 
 ### 1.3.3 The Final Proof $\Pi_n$
-Culminating the series of verifications is The Final Proof $\Pi_n$, which underscores the correctness of the entire computational sequence. This proof validates that all inputs $\omega_1$ to $\omega_n$ have been accurately processed, leading to the final state $Z_n$. The elegance of $\Pi_n$ lies in its ability to facilitate efficient verification of the entire process without the need to individually recompute each step.
+Culminating the series of verifications is the final proof $\Pi_n$, which validates that all inputs $\omega_1$ to $\omega_n$ have been accurately processed, leading to the final state $Z_n$. The elegance of $\Pi_n$ lies in its ability to facilitate efficient verification of the entire process without the need to individually recompute each step.
 
 
 # 2 Mechanisms and problems of ordinary Recursion
 Now that you understand IVC, let's review the recursive proofs in zero-knowledge proofs.
 
 ## 2.1 Two level SNARK recursion 
-![two level snark recursion](./images/part1_twolevelsnarkrecursion.png)
+![two levels snark recursion](./images/part1_twolevelsnarkrecursion.png)
 
-This is the diagram of recursion, two-level SNARK which consists the Inner Proof System and the Outer Proof System. For example, suppose we want to use a fast proof scheme for $P1$ and a proof scheme whose verification is the EVM friendly in $P2$.
+This is the diagram of a recursive two-levels SNARK which consists in an inner and an outer proof system. For example, suppose we want to combine a fast $P_1$ proof scheme with another EVM friendly $P_2$ proof scheme.
 
 **Inner Proof System:**
 - Public input: $x$
@@ -48,7 +48,7 @@ At this level, the SNARK prover $P_1$ is tasked with demonstrating knowledge of 
 - Public input: Verifying parameters $vp$ and $x$
 - Witness: $\Pi_1$
 
-In the outer layer, a different SNARK prover $P_2$ proves the existence of a valid proof $\Pi_1$ from the Inner Proof System. This is done by showing that the verifier $V$, equipped with parameters $vp$, confirms the legitimacy of $x$ and $\Pi_1$ by outputting "yes." and then creates a new proof $\Pi_2$.
+In the outer layer, a different SNARK prover $P_2$ proves the existence of a valid proof $\Pi_1$ from the Inner Proof System. This is done by showing that the verifier $V$, equipped with parameters $vp$, confirms the legitimacy of $x$ and $\Pi_1$ by outputting $1$ and creating a new proof $\Pi_2$.
 
 The process effectively demonstrates not only the validity of the initial computation $C(x, w)$ but also the verifier's acknowledgment of this validity through the second-level proof $\Pi_2$.
 
@@ -58,7 +58,7 @@ This is the concept of the recursion, unlike IVC, which is characterized by its 
 ## 2.2 Naive SNARK-Based IVC
 ![naive snark-based ivc](./images/part1_naivesnarkbasedivc.png)
 
-The diagram shows a Naive SNARK-Based IVC. At each step $i$, the IVC state $Z_i$ is transformed by a function $F$ to generate a new state $Z_{i+1}$. Simultaneously, a proof $\Pi_i$ is verified and, along with $Z_i$, by the SNARK verifier $SNARK.V$. This verification aims to ensure the correctness of previous state $Z_i$.
+The diagram shows a Naive SNARK-Based IVC. At each step $i$, the IVC state $Z_i$ is transformed by a function $F$ to generate a new state $Z_{i+1}$ and a proof $\Pi_i$ is verified by the SNARK verifier $SNARK.V$. This verification aims to ensure the correctness of the transition from the previous state $Z_i$ to the next $Z_{i+1}$.
 
 There is an augmented circuit that integrates both $F$ and $SNARK.V$, where $SNARK.P$ is responsible for generating the next proof $\Pi_{i+1}$. This proof ensures the integrity of the new state $Z_{i+1}$.
 
