@@ -21,7 +21,7 @@ Here, we explore the essential components that make this verification possible.
 ![constructing ivc proof](./images/part1_constructingivcproof.png)
 
 ### 1.3.1 Proof of Correctness
-At the heart of IVC lies the Proof of Correctness. For each step, denoted by $i$, the system generates a proof $\Pi_i$ alongside the computational state $Z_i$. This proof confirmes that the transition from the previous state $Z_{i-1}$ to the current state $Z_i$, through the application of function $F$ with input $\omega_i$, is executed correctly. Specifically, $\Pi_i$ demonstrates that $F(Z_{i-1}, \omega_i)$ precisely results in $Z_i$, effectively assuring the accuracy of this step.
+At the heart of IVC lies the Proof of Correctness. For each step, denoted by $i$, the system generates a proof $\Pi_i$ alongside the computational state $Z_i$. This proof ensures that the transition from the previous state $Z_{i-1}$ to the current state $Z_i$, through the application of function $F$ with input $\omega_i$, has been executed correctly. Specifically, $\Pi_i$ demonstrates that $F(Z_{i-1}, \omega_i)$ results in $Z_i$.
 
 ### 1.3.2 Chain of Verification
 The Chain of Verification extends the concept of trust throughout the computation sequence. Each proof $\Pi_i$ ensure the accuracy of the computation from the previous state, thereby creating a trust chain that links back to the initial state $Z_0$. This is articulated as $V(vp, (i - 1, Z_0, Z_{i-1}), \Pi_{i-1}) = \{0, 1\}$, signifying the seamless verification of each step in the computation process.

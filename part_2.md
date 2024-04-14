@@ -84,7 +84,7 @@ In this statement, there are many instance vectors $z$ possible, as various pair
 For instance, when $(x, y) = (2, 15)$, $z$ is $[2, 4, 8, 10, 15, 1]$. Similarly, for $(x, y) = (3, 35)$, $z$ is $[3, 9, 27, 30, 35, 1]$.
 
 ## 2.3 R1CS in IVC
-Nova is one of the IVC, so we suppose that IVC has the function $F$ of the $x^3 + x + 5 = y$ and it's R1CS. This is the IVC, so the output $y$ at step $i$ becomes the input $x$ at the step $i+1$. 
+Suppose our IVC consists into repeatedly applying the function $F$ of the $x^3 + x + 5 = y$ through it's R1CS representation. In Nova's IVC, the output $y$ at step $i$ will become the input $x$ at step $i+1$. 
 
 For instance,
 Step 1: $(x, y) = (1, 7)$, $z$ is $[1, 1, 1, 2, 7, 1]$
@@ -100,7 +100,7 @@ Thus, the goal of Nova Folding is to fold two instance vectors $z_1, z_2$ into a
 This illustration is an intuitive representation of Folding. Let's look at the specifics. The actual Nova Folding does Folding of an Augmented Circuit.
 
 
-# 3 First Attempt: Try Folding to two R1CS
+# 3 First Attempt: Trying to naively fold two R1CS
 ## 3.1 Random linear Combination
 The most direct approach to folding $Z_1$ and $Z_2$ is to take a random linear combination with $r$:
 
@@ -155,7 +155,7 @@ These are the causes.:
 3. The scalar multiplication with $r$ alters the constant term, $1$, into $r$ in the vector $Z$, $Z = [W_1 + r \cdot W_2, x_1 + r \cdot x_2, 1 + r \cdot 1]$ and deviating from the standard format expected in a valid R1CS instance.
 
 
-## 3.2 How can we solve this R1CS isuue?
+## 3.2 How can we solve this R1CS issue?
 To overcome the challenges from the first try, we have to adopt a new strategy in the second attempt by introducing two key elements:
 
 - Introduction of an Error Vector $E$: Introduce an error vector $E$ to absorb the cross terms, $r \cdot (A \cdot Z_1 \odot B \cdot Z_2 + A \cdot Z_2 \odot B \cdot Z_1)$ , from folding $Z_1$ and $Z_2$.
@@ -175,7 +175,7 @@ $$ (A \cdot Z) \odot (B \cdot Z) = u \cdot (C\cdot Z) + E$$
 
 Here, $E$ serves to relax the cross-term effects. The scalar $u$ is introduced to adjust for the $r^2$ term and the altered constant in $Z$, ensuring the equation's balance and alignment.
 
-This modification allows the linear-combinationed vector $Z$, resulting from the folding process, to still satisfy the Relaxed R1CS. Note that any instance of a Relaxed R1CS can be resented as R1CS by adopting $u = 1$ and $E = 0$. So Relaxed R1CS is still  the property of NP-completeness.
+This modification allows the linear-combinationed vector $Z$, resulting from the folding process, to still satisfy the Relaxed R1CS. Note that any instance of a Relaxed R1CS can be represented using R1CS by adopting $u = 1$ and $E = 0$. So Relaxed R1CS retains the property of NP-completeness.
 
 ### 4.1.2 Mathematical Formulation of the Relaxed R1CS
 From the definition of relaxed R1CS, we have:
@@ -216,10 +216,10 @@ AZ \odot BZ &= A(Z_1 + r\cdot Z_2) \odot B(Z_1 + r\cdot Z_2) \\
 
 This section describes how Prover and Verifier interact to build the Relaxed R1CS, although this is a naïve approach.
 
-### 4.2.0 What do they have by begin?
+### 4.2.0 What do they have at the beginning of the protocol?
 ![4.2.0](/images/part2_4.2.0.png)
 
-At first, the Prover has an instance-witness pair for the Relaxed R1CS, denoted as $((E_i,u_i,x_i),W_i)$, and the Verifier knows the only instance $(E_i,u_i,x_i)$ for it.
+At first, the Prover has two instance-witness pairs satisfying a Relaxed R1CS equation. Each are denoted as $((E_i,u_i,x_i),W_i)$, and the Verifier knows the only instance $(E_i,u_i,x_i)$ for it.
 
 ### 4.2.1 Prover sends the witness to Verifier
 ![4.2.1](/images/part2_4.2.1.png)
@@ -265,7 +265,7 @@ To address these issues, the final protocol introduces a new concept: Committed 
 - Single Commitment from the Prover: Instead of sending raw witnesses themselves, the prover sends commitment of the witness. This commitment aids the verifier in computing commitments to the folded witness $(W, E)$ efficiently.
 
 # 5 Committed Relaxed R1CS
-Before moving on to the Committed Relaxed R1CS, let's check the what commitemnt scheme is.
+Before moving on to the Committed Relaxed R1CS, let's check what a commitment scheme is.
 ## 5.1 Concepts of Commitment Scheme
 A commitment scheme allows us to commit to a chosen value while keeping it hidden, emphasizing two core properties: 
 
@@ -300,7 +300,7 @@ Let's see how to construct Folding scheme for Committed Relaxed R1CS.
 
 ## 6.1 Prover and Verifier Actions in the Folding Scheme for Committed Relaxed R1CS
 
-### 6.1.0 What do they have by begin?
+### 6.1.0 What do they have at the beginning of the protocol?
 ![6.1.0](/images/part2_6.1.0.png)
 
 Initially, the Prover has an instance-witness pair for the Relaxed R1CS, denoted as $((E_i,u_i,x_i),W)$, and the Verifier knows the instance $(u_i,x_i)$ because $E_i$ is also treated as witness in addition to $W_i$.

@@ -1,6 +1,6 @@
 # Nova Folding Part 3: Cycle of Curve in Nova
 
-This part explains about what is the Cycle of Curve and How it works in Nova Folding. The original Nova paper used a single elliptic curve. However, Recursion, which generally repeats Proving and (partial) Vrifying, can improve the efficiency of proof generation by using a special pair of two elliptic curves called a Cycle of Curves.
+This part explains about what is the Cycle of Curve and How it works in Nova Folding. The original Nova paper used a single elliptic curve. However, Recursion, which generally repeats Proving and (partial) Verifying, can improve the efficiency of proof generation by using a special pair of two elliptic curves called a Cycle of Curves.
 So the implementation of Nova Folding also employs the Cycle of Curve.
 The paper, [Revisiting the Nova Proof System on a Cycle of Curves](https://eprint.iacr.org/2023/969.pdf), discusses how Nova works with the Cycle of Curve and bugs found in early implementations of Nova with the Cycle of Curve.
 
@@ -209,7 +209,7 @@ First, suppose we want to prove a circuit defined by a finite field $F_q$. Then 
 Thus, by using the Cycle of Curve, we can make the proof $\Pi$ compatible with the order of the circuit at each recursion step.
 
 
-# 6 Why Dose the Cycle of Curve make it efficiency in Nova?
+# 6 Why does the Cycle of Curve makes Nova efficient?
 
 Recall the Augmented Circuit, which includes Non-Interactive Folding.
 ![calculation](/images/part3_calculation.png)
