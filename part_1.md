@@ -5,7 +5,7 @@ As stated in the opening line of Nova paper, Nova is a new approach to realize I
 # 1 Incremental Verifiable Computation
 
 ## 1.1 Incremental Computation
-![incremenatl computation](./images/part1_incrementalcomputation.png)
+![incremental computation](./images/part1_incrementalcomputation.png)
 
 First, let's define the Incremental Computation. It involves breaking down a large, complex computation into smaller, manageable steps. In this approach, a fixed function $F$ is applied iteratively to an initial state $Z_0$, along with a sequence of inputs $ω_1, ω_2,..., ω_n$. This process results in a series of intermediate states $Z_1, Z_2, ...Z_i$, ultimately leading to the final state $Z_n$. The main advantage of incremental computation is its ability to handle complex calculations in a step-wise manner, making it easier to manage and update computations based on new inputs or changes.
 
