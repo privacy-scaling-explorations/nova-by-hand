@@ -24,7 +24,7 @@ Here, we explore the essential components that make this verification possible.
 At the heart of IVC lies the Proof of Correctness. For each step, denoted by $i$, the system generates a proof $\Pi_i$ alongside the computational state $Z_i$. This proof ensures that the transition from the previous state $Z_{i-1}$ to the current state $Z_i$, through the application of function $F$ with input $\omega_i$, has been executed correctly. Specifically, $\Pi_i$ demonstrates that $F(Z_{i-1}, \omega_i)$ results in $Z_i$.
 
 ### 1.3.2 Chain of Verification
-The Chain of Verification extends the concept of trust throughout the computation sequence. Each proof $\Pi_i$ ensure the accuracy of the computation from the previous state, thereby creating a trust chain that links back to the initial state $Z_0$. This is articulated as $V(vp, (i - 1, Z_0, Z_{i-1}), \Pi_{i-1}) = \{0, 1\}$, signifying the seamless verification of each step in the computation process.
+In IVC, the correctness of each step forms a sequential chain. Each proof $\Pi_i$ ensure the accuracy of the computation from the previous state, thereby creating a trust chain that links back to the initial state $Z_0$. The verification function $V$, using parameters $vp$, checks these proofs. Specifically, $V(vp, (i - 1, Z_0, Z_{i-1}), \Pi_{i-1}) = \{0, 1\}$, signifying the seamless verification of each step in the computation process.
 
 ### 1.3.3 The Final Proof $\Pi_n$
 Culminating the series of verifications is the final proof $\Pi_n$, which validates that all inputs $\omega_1$ to $\omega_n$ have been accurately processed, leading to the final state $Z_n$. The elegance of $\Pi_n$ lies in its ability to facilitate efficient verification of the entire process without the need to individually recompute each step.
@@ -66,20 +66,13 @@ In the final verification step, the SNARK verifier $SNARK.V$ uses the final stat
 
 
 **Problem of Naive SNARK-Based IVC**
-If the naive SNARK adopts a general pairing-based approach, this method significantly increases recursion overhead and prolongs the overall proving time. The reason is the internal Verifier's need to repetitively handle pairing and related processes at each step.
 
-[zkPairing](https://0xparc.org/blog/zk-pairing-1) and [circom-pairing](https://github.com/yi-sun/circom-pairing) are the works done by the 0xParc, describing an experimental implementation and benchmarking for verifying pairings in Circom circuit.
+If the naive SNARK adopts a general pairing-based approach, this method significantly increases recursion overhead and prolongs the overall proving time. In a pairing-based approach, the verifier $SNARK.V$ uses pairing to validate each proof. So this process is computationally intensive and becomes more burdensome as the number of steps in the computation increases.
 
+**Recursion overhead**
+The recursion overhead refers to the additional computational load and time required to repeatedly verify each state's transition. Since each step involves this complex verification, the total time and computational resources needed escalate quickly, making the process inefficient for larger sequences of computations. 
 
-| Metric                 | Optimal Ate Pairing |
-|------------------------|---------------------------|
-| Constraints            | 11.4M                     |
-| Compilation Time       | 1.9 hrs                   |
-| Witness Generation Time| 1 min                     |
-| Proving Key Size       | 6.5 GB                    |
-| Proof Generation Time  | 52 sec                    |
-| Proof Verification Time| 1 sec                     |
-
+For Example, [zkPairing](https://0xparc.org/blog/zk-pairing-1) and [circom-pairing](https://github.com/yi-sun/circom-pairing) are the works done by the 0xParc, describing an experimental implementation and [benchmarking](https://github.com/yi-sun/circom-pairing?tab=readme-ov-file#benchmarks) for verifying pairings in Circom circuit.
 
 From their benchmarks, for example, the Optimal Ate pairing metric cites a Proving time of 52 seconds and a Proof verification time of 1 second. From the perspective of Naive SNARK-Based IVC, this implies that each step will take at least 52 seconds for Proving time and 1 second for Proof verification time. As the number of IVC steps increases to 100 or even 1000, this would lead to substantial time consumption and overhead. Therefore, this approach may not be the most efficient for implementing IVC.
 
