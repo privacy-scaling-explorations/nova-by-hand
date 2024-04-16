@@ -67,14 +67,15 @@ In the final verification step, the SNARK verifier $SNARK.V$ uses the final stat
 
 **Problem of Naive SNARK-Based IVC**
 
-If the naive SNARK adopts a general pairing-based approach, this method significantly increases recursion overhead and prolongs the overall proving time. In a pairing-based approach, the verifier $SNARK.V$ uses pairing to validate each proof. So this process is computationally intensive and becomes more burdensome as the number of steps in the computation increases.
+If the naive SNARK adopts a general pairing-based approach, this method significantly increases recursion overhead and extends the overall proving time. In a pairing-based approach, the internal verifier $SNARK.V$ uses pairing to validate each proof. Here, if the time in $SNARK.V$ is longer than the execution of circuit R, the time in $SNARK.P$ will increase with each step. And it is time-consuming to create a proof of $SNARK at each step.
 
 **Recursion overhead**
-The recursion overhead refers to the additional computational load and time required to repeatedly verify each state's transition. Since each step involves this complex verification, the total time and computational resources needed escalate quickly, making the process inefficient for larger sequences of computations. 
 
-For Example, [zkPairing](https://0xparc.org/blog/zk-pairing-1) and [circom-pairing](https://github.com/yi-sun/circom-pairing) are the works done by the 0xParc, describing an experimental implementation and [benchmarking](https://github.com/yi-sun/circom-pairing?tab=readme-ov-file#benchmarks) for verifying pairings in Circom circuit.
+The recursion overhead refers to the additional steps required that the prover must prove in addition to proving the function $F$.
 
-From their benchmarks, for example, the Optimal Ate pairing metric cites a Proving time of 52 seconds and a Proof verification time of 1 second. From the perspective of Naive SNARK-Based IVC, this implies that each step will take at least 52 seconds for Proving time and 1 second for Proof verification time. As the number of IVC steps increases to 100 or even 1000, this would lead to substantial time consumption and overhead. Therefore, this approach may not be the most efficient for implementing IVC.
+For Example, [zkPairing](https://0xparc.org/blog/zk-pairing-1) and [circom-pairing](https://github.com/yi-sun/circom-pairing) are the works done by the 0xParc, describing an experimental implementation and benchmarking for verifying pairings in Circom circuit.
+
+From [their benchmarking](https://github.com/yi-sun/circom-pairing?tab=readme-ov-file#benchmarks), for example, the Optimal Ate pairing metric cites a Proving time of 52 seconds and a Proof verification time of 1 second. From the perspective of Naive SNARK-Based IVC, this implies that each step will take at least 52 seconds for Proving time and 1 second for Proof verification time. As the number of IVC steps increases to 100 or even 1000, this would lead to substantial time consumption and overhead. Therefore, this approach may not be the most efficient for implementing IVC.
 
 ## 2.3 FRI family
 So the next topic is what would be the outcome of adopting FRI commitments instead of  polynomial commitments and pairings in ZKP schemes? Such schemes, utilizing FRI commitments, are known as zkSTARKs or the FRI-Family. zkSTARKs are known for their lack of a trusted setup requirement and their quantum resistance, a characteristic owing to the use of hash functions in Merkle tree commitments.
@@ -83,9 +84,7 @@ Another feature is the ease of recursive proofs. For instance, in Plonky2, despi
 
 Individual proofs are independent, making them suitable for parallelization. Some zkVM projects prefer it for its fast recursive proofs and ease of parallelization.
 
-However, a disadvantage is the expansion in Proof Size attributed to FRI's Merkle Proofs. This enlargement escalates the call data and consequently raising the gas cost for verification on Ethereum, reputedly four times that of Groth16.
-
-While general zkSNARKs typically leverage 256-bit BN256 elliptic curve cryptography for security, zkSTARKs opt for a 64-bit Goldilocks field, supplemented by a 128-bit extension field, to enhance CPU performance. This choice of a smaller finite field, though, may raise concerns regarding the level of security guaranteed by the Schwartz-Zippel lemma.
+However, a disadvantage is the expansion in Proof Size attributed to FRI's Merkle Proofs. And while general zkSNARKs typically leverage 256-bit BN256 elliptic curve cryptography for security, zkSTARKs opt for a 64-bit Goldilocks field, supplemented by a 128-bit extension field, to enhance CPU performance. This choice of a smaller finite field, though, may raise concerns regarding the level of security guaranteed by the Schwartz-Zippel lemma.
 
 ## 2.4 Accumulation
 Since Halo2 has also been actively used recently, I would like to mention about how it works. In Halo 2, the expensive part of the verification is deferred to something called an accumulator, so that instead of verifying SNARK at each step of the IVC, it would only need to be checked once at the end.
@@ -107,10 +106,12 @@ While the accumulation approach in Halo2, which compresses commitments like the 
 
 # 3 Nova Folding
 ## 3.1 Features of Nova Folding
+
+Unlike the traditional accumulation method, Folding scheme can fold the two instances of arithmetization they are committed. In Nova, it can fold the two R1CS instances into one.
+
 ![nova folding](./images/part1_novafolding2.png)
 
-Unlike the traditional accumulation method, Folding scheme can fold the two arithmetization and it's instances before the commitment into one. In Nova, it can fold the two R1CS instances into one.
-In this picture, $u$ and $w$ represent instance and witness pair for the R1CS. This breakthrough implies that, within the IVC steps, there's no longer a need to generate each SNARK proof and verify it for each step except for the final one.  This advancement makes it more efficient IVC implementations.
+In this picture, $u$ and $w$ represent instance and witness pair for the R1CS. This breakthrough implies that, within the IVC steps, there's no longer a need to generate each SNARK proof and verify it for each step except for the final one, or to generate and verify commitments in each step.  This advancement makes it more efficient IVC implementations. Detailed explanation will be given in part 2, so this is what you should remember now as the characteristics of Folding Scheme.
 
 Here are some of Nova's features.
 - Adoption of Folding Schemes, making two NP(R1CS) instances into one.
@@ -146,3 +147,4 @@ Since the invention of Nova Folding, there has been an evolution in the Folding 
 - [ZK7: Latest developments in Halo2 by Ying Tong Lai](https://youtu.be/V1RgGn1GtqM?si=IlofaKNNH79doSmW)
 - [The Halo2 Book](https://zcash.github.io/halo2)
 - [Scalable, transparent, and post-quantum secure computational integrity](https://eprint.iacr.org/2018/046)
+- [Introducing Plonky2](https://polygon.technology/blog/introducing-plonky2)

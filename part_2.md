@@ -393,7 +393,7 @@ And in IVC, the Prover computes a new instance of $u_{i+1}$, indicating that the
 ![augmented pic](/images/part2_augmentedconstraintspic.png)
 
 
-This illustration is a mixture of Figure 4 on P.18 of the Nova paper and [Revisiting the Nova Proof System - Wilson Nguyen](https://youtu.be/h_PU7FZWiQk?si=G5DZYfrlQQi8SG-j).
+This illustration is a mixture of Figure 4 on P.18 of the [Nova paper](https://eprint.iacr.org/2021/370.pdf) and [Revisiting the Nova Proof System - Wilson Nguyen](https://youtu.be/h_PU7FZWiQk?si=G5DZYfrlQQi8SG-j).
 
 A hash function serves as a mechanism to ensure the integrity of each step within the computation process. By hashing the result of each step, which includes both the public I/O, we can establish a verifiable link to the subsequent step. This method allows for the confirmation that each phase of the computation is carried out correctly.
 
