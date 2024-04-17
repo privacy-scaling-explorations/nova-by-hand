@@ -67,7 +67,7 @@ In the final verification step, the SNARK verifier $SNARK.V$ uses the final stat
 
 **Problem of Naive SNARK-Based IVC**
 
-If the naive SNARK adopts a general pairing-based approach, this method significantly increases recursion overhead and extends the overall proving time. In a pairing-based approach, the internal verifier $SNARK.V$ uses pairing to validate each proof. Here, if the time in $SNARK.V$ is longer than the execution of circuit R, the time in $SNARK.P$ will increase with each step. And it is time-consuming to create a proof of $SNARK at each step.
+If the naive SNARK adopts a general pairing-based approach, this method significantly increases recursion overhead and extends the overall proving time. In a pairing-based approach, the internal verifier $SNARK.V$ uses pairing to validate each proof which is costly. Here, if the time in $SNARK.V$ is longer than the execution of circuit R, the time in $SNARK.P$ will increase with each step. And it is time-consuming to create a SNARK proof at each step.
 
 **Recursion overhead**
 
@@ -84,7 +84,7 @@ Another feature is the ease of recursive proofs. For instance, in Plonky2, despi
 
 Individual proofs are independent, making them suitable for parallelization. Some zkVM projects prefer it for its fast recursive proofs and ease of parallelization.
 
-However, a disadvantage is the expansion in Proof Size attributed to FRI's Merkle Proofs. And while general zkSNARKs typically leverage 256-bit BN256 elliptic curve cryptography for security, zkSTARKs opt for a 64-bit Goldilocks field, supplemented by a 128-bit extension field, to enhance CPU performance. This choice of a smaller finite field, though, may raise concerns regarding the level of security guaranteed by the Schwartz-Zippel lemma.
+However, a disadvantage is the expansion in proof size attributed to FRI's Merkle Proofs. And while general zkSNARKs typically leverage 256-bit BN256 elliptic curve cryptography for security, zkSTARKs opt for a 64-bit Goldilocks field, supplemented by a 128-bit extension field, to enhance CPU performance. This choice of a smaller finite field, though, may raise concerns regarding the level of security guaranteed by the Schwartz-Zippel lemma.
 
 ## 2.4 Accumulation
 Since Halo2 has also been actively used recently, I would like to mention about how it works. In Halo 2, the expensive part of the verification is deferred to something called an accumulator, so that instead of verifying SNARK at each step of the IVC, it would only need to be checked once at the end.
@@ -111,7 +111,7 @@ Unlike the traditional accumulation method, Folding scheme can fold the two inst
 
 ![nova folding](./images/part1_novafolding2.png)
 
-In this picture, $u$ and $w$ represent instance and witness pair for the R1CS. This breakthrough implies that, within the IVC steps, there's no longer a need to generate each SNARK proof and verify it for each step except for the final one, or to generate and verify commitments in each step.  This advancement makes it more efficient IVC implementations. Detailed explanation will be given in part 2, so this is what you should remember now as the characteristics of Folding Scheme.
+In this picture, $u$ and $w$ represent instance and witness pair for the R1CS. This breakthrough implies that, within the IVC steps, there's no longer a need to generate each SNARK proof and verify it for each step, or to generate and verify commitments in each step, except for the final one.  This advancement makes it more efficient IVC implementations. Detailed explanation will be given in part 2, so this is what you should remember now as the characteristics of the Folding Scheme.
 
 Here are some of Nova's features.
 - Adoption of Folding Schemes, making two NP(R1CS) instances into one.
