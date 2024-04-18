@@ -1,6 +1,6 @@
 # Nova Folding Introduction
 
-These articles were written by Yugo through the [PSE’s acceleration program](https://github.com/privacy-scaling-explorations/acceleration-program). I would like to thank CPerezz and Pierre for their advice as I was studying and writing my article.
+These articles were written by [Yugo](https://github.com/yugocabrio) through the [PSE’s acceleration program](https://github.com/privacy-scaling-explorations/acceleration-program/issues/26) from December 2023 to April 2024. I would like to thank CPerezz and Pierre for their advice as I was studying and writing my article.
 
 # 1 Introduction
 In the recent development of Zero-Knowledge Proof technology, efficiency has been crucial for practical applications, such as zkVM and zkML. A major advancement in recent years is the concept of recursion, enabling the verification of a prior SNARK proof while proving additional statements.
